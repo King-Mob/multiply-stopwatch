@@ -10,6 +10,7 @@
     let time = 0;
     let watchMotion = false;
     let timer;
+    const audio = new Audio("babumbumbum.mp3");
 
     const timeDisplay = document.getElementById("time");
 
@@ -33,7 +34,6 @@
           time--;
           timeDisplay.innerHTML = time;
           if (time == 0) {
-            const audio = new Audio("babumbumbum.mp3");
             audio.play();
             clearInterval(timer);
             button.innerHTML = "Start";
