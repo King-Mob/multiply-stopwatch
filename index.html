@@ -1,0 +1,44 @@
+<html>
+  <h1 id="label">
+    Time:
+    <span id="time"></span>
+  </h1>
+
+  <button id="button" onclick="">Start</button>
+
+  <script>
+    let time = 0;
+    let watchMotion = false;
+    let timer;
+
+    const timeDisplay = document.getElementById("time");
+
+    timeDisplay.innerHTML = time;
+
+    const button = document.getElementById("button");
+
+    button.onclick = () => {
+      if (!watchMotion) {
+        watchMotion = true;
+        timer = setInterval(() => {
+          time++;
+          timeDisplay.innerHTML = time;
+        }, 1000);
+        button.innerHTML = "Stop";
+      } else {
+        watchMotion = false;
+        time = 3 * time;
+        clearInterval(timer);
+        timer = setInterval(() => {
+          time--;
+          timeDisplay.innerHTML = time;
+          if (time == 0) {
+            const audio = new Audio("babumbumbum.mp3");
+            audio.play();
+            clearInterval(timer);
+          }
+        }, 1000);
+      }
+    };
+  </script>
+</html>
