@@ -3,14 +3,27 @@
     Time:
     <span id="time"></span>
   </h1>
-
   <button id="button" onclick="">Start</button>
+  <br />
+  <input type="radio" id="bowl" name="sound" value="bowl" checked />
+  <label for="bowl">Singing Bowl</label>
+  <br />
+  <input type="radio" id="bell" name="sound" value="bell" />
+  <label for="bell">Bell</label>
+  <br />
+  <input type="radio" id="clown" name="sound" value="clown" />
+  <label for="clown">afternoonwideboys</label>
 
   <script>
     let time = 0;
     let watchMotion = false;
     let timer;
-    const audio = new Audio("babumbumbum.mp3");
+
+    const audio = {
+      clown: new Audio("babumbumbum.mp3"),
+      bowl: new Audio("singing-bowl.mp3"),
+      bell: new Audio("bell.mp3"),
+    };
 
     const timeDisplay = document.getElementById("time");
 
@@ -27,6 +40,7 @@
         }, 1000);
         button.innerHTML = "Stop";
       } else {
+        button.innerHTML = "Going down";
         watchMotion = false;
         time = 3 * time;
         clearInterval(timer);
@@ -34,7 +48,14 @@
           time--;
           timeDisplay.innerHTML = time;
           if (time == 0) {
-            audio.play();
+            const soundOptions = document.getElementsByName("sound");
+            for (let soundOption of soundOptions) {
+              if (soundOption.checked) {
+                audio[soundOption.id].play();
+              }
+            }
+
+            //audio.play();
             clearInterval(timer);
             button.innerHTML = "Start";
           }
